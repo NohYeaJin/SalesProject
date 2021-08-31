@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset ="UTF-8">
+    <title>this is demo sign up page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</head>
+<body>
+회원가입 페이지 입니다
+<a href="/">메인페이지</a>
+<a href="/customlogin">로그인</a>
+<form action="/newUser" id="signupForm" method="post">
+
+    <input type="text" id="register-email" name="email" placeholder="이메일 주소"><br>
+    <input type="text" id="register-username" name="nickname" placeholder="닉네임"><br>
+    <input type="text" id="register-userphonenum" name="phonenum" placeholder="휴대폰 번호(특수문자 미포함)"><br>
+    <input type="text" id="register-address" name="address" placeholder="주소"><br>
+    <button type="button" onclick="openAddress()" style="float:left; margin-left: 10px;">주소 찾기</button><br>
+    <input type="text" id="register-address-detail" name="detail_address" placeholder="상세 주소"><br>
+    <input type="password" id="register-password-input" name="password" placeholder="비밀번호(영문,숫자,특수문자 포함 8~15자리)"><br>
+    <input type="password" id="register-confirm-password" placeholder="비밀번호 확인"><br>
+    <button onclick="chkPW()" id="form_submit_btn" type="button">회원가입하기</button><br>
+
+</form>
+
+<script>
+    function chkPW(){
+
+        var pw = $("#register-password-input").val();
+        var checkpw = $("#register-confirm-password").val();
+        var num = pw.search(/[0-9]/g);
+        var eng = pw.search(/[a-z]/ig);
+        var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+        if(pw != checkpw){
+            alert("비밀번호가 일치하지 않습니다.");
+            return false;
+        }else {
+            if (pw.length < 8 || pw.length > 15) {
+                alert("8자리 ~ 15자리 이내로 입력해주세요.");
+                return false;
+            } else if (pw.search(/\s/) != -1) {
+                alert("비밀번호는 공백 없이 입력해주세요.");
+                return false;
+            } else if (num < 0 || eng < 0 || spe < 0) {
+                alert("영문,숫자,특수문자를 혼합하여 입력해주세요.");
+                return false;
+            } else {
+                var address = $("#register-address").val();
+                var detailAddress = $("#register-address-detail").val();
+                $("#register-address").val = address + detailAddress
+                $("#signupForm").submit();
+                alert("성공적으로 가입되었습니다.");
+                return true;
+            }
+        }
+
+    }
+
+</script>
+<script>
+    function openAddress() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                var address_input = data.address
+                document.getElementById('register-address').value = address_input;
+            }
+        }).open();
+    }
+</script>
+
+</body>
+</html>

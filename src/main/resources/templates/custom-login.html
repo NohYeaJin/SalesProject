@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset ="UTF-8">
+    <title>this is demo login page</title>
+</head>
+<body>
+    로그인 페이지 입니다
+    <form action="/customlogin" method="post">
+        <div class="custom-form">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <input type="text" class="form-control mb-3" id="login-input" name="username" placeholder="Email">
+            <input type="password" class="form-control mb-3" id="login-password-input" name="password" placeholder="Password">
+            <button type="submit" class="btn btn-primary rectangle">LOG IN</button>
+        </div><!-- / custom-form -->
+    </form>
+</body>
+</html>

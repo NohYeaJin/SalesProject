@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset ="UTF-8">
+    <title>this is demo main page</title>
+</head>
+<body>
+메인페이지 입니다
+<a href="/signup">회원가입</a>
+<a href="/customlogin">로그인</a>
+<div sec:authorize="hasRole('ROLE_MEMBER')">
+    <li><a href="/myaccount">마이페이지</a></li>
+    <li><a href="/logout">로그아웃</a></li>
+</div>
+</body>
+</html>
